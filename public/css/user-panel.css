@@ -1,5 +1,28 @@
-.table-header {
+.container.user-list .panel-body {
+    padding:0 15px;
+}
+
+.container.user-list .table-header {
     background: #AAA;
     color: #FFF;
     font-weight: bold;
+    line-height: 3em;
+}
+
+.container.user-list .user-list-item {
+    padding: 0.5em 0;
+}
+
+.container.user-list .user-list-item:nth-child(odd) {
+    background: #F0FFFF;
+}
+
+.container.user-list .user-list-item button {
+    position:relative;
+    left:5px;
+}
+
+
+.container.user-list .user-list-item button:first-child {
+    left:0;
 }
