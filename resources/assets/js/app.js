@@ -8,6 +8,34 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+import VueRouter from 'vue-router';
+
+window.Vue.use(VueRouter);
+
+import UsersIndex from './components/users/UsersIndex.vue';
+// import UsersCreate from './components/users/UsersCreate';
+// import UsersEdit from './components/users/UsersEdit';
+
+const routes = [
+    {
+        path: '/',
+        components: {
+            usersIndex: UsersIndex
+        }
+    },
+    // {
+    //     name: 'createUser',
+    //     path: 'admin/users/create',
+    //     component: UsersCreate
+    // },
+    // {
+    //     name: 'editUser',
+    //     path: 'admin/users/edit',
+    //     component: UsersEdit
+    // }
+]
+
+const router = new VueRouter({routes});
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -15,8 +43,6 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example', require('./components/Example.vue'));
+//Vue.component('example', require('./components/Example.vue'));
 
-const app = new Vue({
-    el: '#app'
-});
+const app = new Vue({router}).$mount('#app');

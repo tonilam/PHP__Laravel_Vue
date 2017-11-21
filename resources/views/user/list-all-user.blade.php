@@ -13,6 +13,8 @@
                         <div class="col-xs-4">Created at</div>
                         <div class="col-xs-3">Action</div>
                     </div>
+                    <router-view name="usersIndex"></router-view>
+                    <router-view></router-view>
                     @foreach($users as $user)
                     <div class="row user-list-item">
                         <div class="col-xs-5">{{$user['first_name']}} {{$user['last_name']}}</div>
@@ -28,4 +30,6 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript" src="/js/crud.js"></script>
 @endsection
