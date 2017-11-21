@@ -6,15 +6,16 @@
         </div>
 
         <div class="panel panel-default">
-            <div class="panel-heading">YUsers list</div>
+            <div class="panel-heading">Users list</div>
             <div class="panel-body">
                 <table class="table table-bordered table-striped">
                     <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Address</th>
-                        <th>Website</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
                         <th>Email</th>
+                        <th>Time Zone</th>
+                        <th>Created at</th>
                         <th width="100">&nbsp;</th>
                     </tr>
                     </thead>
@@ -24,6 +25,7 @@
                         <td>{{ user.last_name }}</td>
                         <td>{{ user.email }}</td>
                         <td>{{ user.timezone }}</td>
+                        <td>{{ user.created_at }}</td>
                         <td>
                             <router-link :to="{user: 'editCompany', params: {id: user.id}}" class="btn btn-xs btn-default">
                                 Edit

@@ -30,6 +30,4 @@
         </div>
     </div>
 </div>
-
-<script type="text/javascript" src="/js/crud.js"></script>
 @endsection

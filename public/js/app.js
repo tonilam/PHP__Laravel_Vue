@@ -45495,6 +45495,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -45552,7 +45554,7 @@ var render = function() {
     ),
     _vm._v(" "),
     _c("div", { staticClass: "panel panel-default" }, [
-      _c("div", { staticClass: "panel-heading" }, [_vm._v("YUsers list")]),
+      _c("div", { staticClass: "panel-heading" }, [_vm._v("Users list")]),
       _vm._v(" "),
       _c("div", { staticClass: "panel-body" }, [
         _c("table", { staticClass: "table table-bordered table-striped" }, [
@@ -45569,6 +45571,8 @@ var render = function() {
                 _c("td", [_vm._v(_vm._s(user.email))]),
                 _vm._v(" "),
                 _c("td", [_vm._v(_vm._s(user.timezone))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(user.created_at))]),
                 _vm._v(" "),
                 _c(
                   "td",
@@ -45623,13 +45627,15 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", [_vm._v("Name")]),
+        _c("th", [_vm._v("First Name")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Address")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Website")]),
+        _c("th", [_vm._v("Last Name")]),
         _vm._v(" "),
         _c("th", [_vm._v("Email")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Time Zone")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Created at")]),
         _vm._v(" "),
         _c("th", { attrs: { width: "100" } }, [_vm._v(" ")])
       ])

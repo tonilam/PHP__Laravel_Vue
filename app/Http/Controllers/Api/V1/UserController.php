@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-user App\User;
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -15,7 +15,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        return User::all();
     }
 
     /**
@@ -87,7 +87,7 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $user->delete();
-        
+
         return '';
     }
 }

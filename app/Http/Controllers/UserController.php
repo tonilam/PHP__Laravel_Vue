@@ -23,6 +23,6 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('user.list-all-user')->withUsers(\App\User::all());
+        return view('user.index')->withUsers(\App\User::all());
     }
 }
