@@ -12,6 +12,9 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    @if (!Auth::guest())
+    <link href="{{ asset('css/user-panel.css') }}" rel="stylesheet">
+    @endif
 </head>
 <body>
     <div id="app">
