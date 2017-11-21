@@ -1,0 +1,32 @@
+.container.blog {
+}
+
+    .container.blog .blog-entity {
+        padding: 0.5em 0 2em 0;
+        border-top: none;
+        border-bottom: 1px solid #333;
+    }
+
+    .container.blog .blog-entity:first-child {
+        border-top: 1px solid #333;
+    }
+
+    .container.blog .blog-entity:hover {
+        background: #666;
+    }
+
+    .container.blog .blog-entity a:hover {
+        color: #FFF;
+    }
+
+    .container.blog .blog-entity button.btn-info {
+        padding: 2px 5px;
+    }
+
+    .container.blog .blog-entity .blog-content {
+        margin: 1rem;
+        padding: 1rem;
+        border: 1px dotted #999;
+        box-shadow: 1px 1px 2px #333;
+    }
+    

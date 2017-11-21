@@ -46484,11 +46484,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            userId: $(".container.blog-list").attr('data-logged-as'),
+            userId: $(".container.blog").attr('data-logged-as'),
             blogs: []
         };
     },
@@ -46515,24 +46516,28 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c(
-      "div",
-      { staticClass: "form-group" },
-      [
-        _c(
-          "router-link",
-          {
-            staticClass: "btn btn-success",
-            attrs: { to: { name: "createBlog", params: { id: _vm.userId } } }
-          },
+    _vm.userId > 0
+      ? _c(
+          "div",
+          { staticClass: "form-group" },
           [
-            _c("span", { staticClass: "glyphicon glyphicon-pencil" }),
-            _vm._v("   Write Blog")
-          ]
+            _c(
+              "router-link",
+              {
+                staticClass: "btn btn-success",
+                attrs: {
+                  to: { name: "createBlog", params: { id: _vm.userId } }
+                }
+              },
+              [
+                _c("span", { staticClass: "glyphicon glyphicon-pencil" }),
+                _vm._v("   Write Blog")
+              ]
+            )
+          ],
+          1
         )
-      ],
-      1
-    ),
+      : _vm._e(),
     _vm._v(" "),
     _c("div", { staticClass: "panel panel-default" }, [
       _c("div", { staticClass: "panel-heading" }, [_vm._v("Blog list")]),
@@ -46541,35 +46546,37 @@ var render = function() {
         "div",
         { staticClass: "panel-body" },
         _vm._l(_vm.blogs, function(blog, index) {
-          return _c("div", [
-            _c(
-              "h3",
-              [
-                _c(
-                  "router-link",
-                  {
-                    attrs: {
-                      to: {
-                        name: "viewBlog",
-                        params: { id: blog.user.id, slug: blog.slug }
-                      }
+          return _c(
+            "div",
+            { staticClass: "blog-entity" },
+            [
+              _c(
+                "router-link",
+                {
+                  attrs: {
+                    to: {
+                      name: "viewBlog",
+                      params: { id: blog.user.id, slug: blog.slug }
                     }
-                  },
-                  [_vm._v(_vm._s(blog.title))]
-                )
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c("div", [
-              _vm._v(
-                "Written By " +
-                  _vm._s(blog.user.first_name + " " + blog.user.last_name)
+                  }
+                },
+                [
+                  _c("div", { staticClass: "col-xs-2" }, [
+                    _c("span", { staticClass: "glyphicon glyphicon-user" }),
+                    _vm._v(
+                      " " +
+                        _vm._s(blog.user.first_name + " " + blog.user.last_name)
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-xs-10" }, [
+                    _vm._v(_vm._s(blog.title))
+                  ])
+                ]
               )
-            ]),
-            _vm._v(" "),
-            _c("div", [_vm._v(_vm._s(blog.content))])
-          ])
+            ],
+            1
+          )
         })
       )
     ])
