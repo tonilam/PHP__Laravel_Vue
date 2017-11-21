@@ -979,6 +979,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_users_UsersCreate_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__components_users_UsersCreate_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_users_UsersEdit_vue__ = __webpack_require__(56);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_users_UsersEdit_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__components_users_UsersEdit_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_blogs_BlogsIndex_vue__ = __webpack_require__(62);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_blogs_BlogsIndex_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__components_blogs_BlogsIndex_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_blogs_BlogCreate_vue__ = __webpack_require__(65);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_blogs_BlogCreate_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__components_blogs_BlogCreate_vue__);
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -997,10 +1001,14 @@ window.Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]);
 
 
 
+
+
 var routes = [{
     path: '/',
     components: {
-        usersIndex: __WEBPACK_IMPORTED_MODULE_1__components_users_UsersIndex_vue___default.a
+        // choose view depending on the name of router-view
+        usersIndex: __WEBPACK_IMPORTED_MODULE_1__components_users_UsersIndex_vue___default.a,
+        blogsIndex: __WEBPACK_IMPORTED_MODULE_4__components_blogs_BlogsIndex_vue___default.a
     }
 }, {
     name: 'createUser',
@@ -1010,6 +1018,11 @@ var routes = [{
     name: 'editUser',
     path: '/users/edit/:id',
     component: __WEBPACK_IMPORTED_MODULE_3__components_users_UsersEdit_vue___default.a
+}, {
+    name: 'createBlog',
+    path: '/blog/:id/create',
+    component: __WEBPACK_IMPORTED_MODULE_5__components_blogs_BlogCreate_vue___default.a,
+    props: true
 }];
 
 var router = new __WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]({ routes: routes });
@@ -46049,7 +46062,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-xs-12 form-group" }, [
-        _c("button", { staticClass: "btn btn-success" }, [_vm._v("Update")])
+        _c("button", { staticClass: "btn btn-success" }, [_vm._v("Create")])
       ])
     ])
   }
@@ -46385,6 +46398,466 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-ccae1392", module.exports)
+  }
+}
+
+/***/ }),
+/* 59 */,
+/* 60 */,
+/* 61 */,
+/* 62 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(40)
+/* script */
+var __vue_script__ = __webpack_require__(63)
+/* template */
+var __vue_template__ = __webpack_require__(64)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\blogs\\BlogsIndex.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {  return key !== "default" && key.substr(0, 2) !== "__"})) {  console.error("named exports are not supported in *.vue files.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-3e0c393a", Component.options)
+  } else {
+    hotAPI.reload("data-v-3e0c393a", Component.options)
+' + '  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 63 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            userId: $(".container.blog-list").attr('data-logged-as'),
+            blogs: []
+        };
+    },
+    mounted: function mounted() {
+        var app = this;
+        console.log('mounted');
+        axios.get('/api/v1/blog').then(function (resp) {
+            app.blogs = resp.data;
+        }).catch(function (resp) {
+            console.log(resp);
+            alert("Could not load blog entities");
+        });
+    },
+
+    methods: {}
+});
+
+/***/ }),
+/* 64 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c(
+      "div",
+      { staticClass: "form-group" },
+      [
+        _c(
+          "router-link",
+          {
+            staticClass: "btn btn-success",
+            attrs: { to: { name: "createBlog", params: { id: _vm.userId } } }
+          },
+          [
+            _c("span", { staticClass: "glyphicon glyphicon-pencil" }),
+            _vm._v("   Write Blog")
+          ]
+        )
+      ],
+      1
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "panel panel-default" }, [
+      _c("div", { staticClass: "panel-heading" }, [_vm._v("Blog list")]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "panel-body" },
+        _vm._l(_vm.blogs, function(blog, index) {
+          return _c("div", [
+            _c("h3", [_vm._v(_vm._s(blog.title))]),
+            _vm._v(" "),
+            _c("div", [
+              _vm._v(
+                "Written By " +
+                  _vm._s(blog.user.first_name + " " + blog.user.last_name)
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", [_vm._v(_vm._s(blog.content))])
+          ])
+        })
+      )
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-3e0c393a", module.exports)
+  }
+}
+
+/***/ }),
+/* 65 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(40)
+/* script */
+var __vue_script__ = __webpack_require__(66)
+/* template */
+var __vue_template__ = __webpack_require__(67)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\blogs\\BlogCreate.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {  return key !== "default" && key.substr(0, 2) !== "__"})) {  console.error("named exports are not supported in *.vue files.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-b5cbbc40", Component.options)
+  } else {
+    hotAPI.reload("data-v-b5cbbc40", Component.options)
+' + '  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 66 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            blog: {
+                title: '',
+                slug: '',
+                content: '',
+                user_id: ''
+            }
+        };
+    },
+    mounted: function mounted() {
+        var app = this;
+        var id = app.$route.params.id;
+        this.blog.user_id = id;
+        console.log('Ready to write blog');
+    },
+    methods: {
+        saveForm: function saveForm() {
+            event.preventDefault();
+            var app = this;
+            var newBlogEntity = app.blog;
+            axios.post('/api/v1/blog', newBlogEntity).then(function (response) {
+                app.$router.push({ path: '/' });
+            }).catch(function (error) {
+                console.log(error);
+                alert("Could not create new blog entity");
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 67 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c(
+      "div",
+      { staticClass: "form-group" },
+      [
+        _c(
+          "router-link",
+          { staticClass: "btn btn-default", attrs: { to: "/" } },
+          [_vm._v("Back")]
+        )
+      ],
+      1
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "panel panel-default" }, [
+      _c("div", { staticClass: "panel-heading" }, [
+        _vm._v("Create new blog entity")
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "panel-body" }, [
+        _c(
+          "form",
+          {
+            on: {
+              submit: function($event) {
+                _vm.saveForm()
+              }
+            }
+          },
+          [
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-xs-12 form-group" }, [
+                _c("label", { staticClass: "control-label" }, [
+                  _vm._v("Title")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.blog.title,
+                      expression: "blog.title"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "text" },
+                  domProps: { value: _vm.blog.title },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.blog, "title", $event.target.value)
+                    }
+                  }
+                })
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-xs-12 form-group" }, [
+                _c("label", { staticClass: "control-label" }, [_vm._v("Slug")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.blog.slug,
+                      expression: "blog.slug"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "text" },
+                  domProps: { value: _vm.blog.slug },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.blog, "slug", $event.target.value)
+                    }
+                  }
+                })
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-xs-12 form-group" }, [
+                _c("label", { staticClass: "control-label" }, [
+                  _vm._v("Content")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.blog.content,
+                      expression: "blog.content"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "text" },
+                  domProps: { value: _vm.blog.content },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.blog, "content", $event.target.value)
+                    }
+                  }
+                })
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-xs-12 form-group" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.blog.user_id,
+                      expression: "blog.user_id"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "hidden" },
+                  domProps: { value: _vm.blog.user_id },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.blog, "user_id", $event.target.value)
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("button", { staticClass: "btn btn-success" }, [
+                  _vm._v("Save")
+                ])
+              ])
+            ])
+          ]
+        )
+      ])
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-b5cbbc40", module.exports)
   }
 }
 

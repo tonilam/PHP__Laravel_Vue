@@ -20,5 +20,6 @@ use Illuminate\Http\Request;
 Route::group(['prefix' => '/v1', 'namespace' => 'Api\V1', 'as' => 'api.'],
     function(){
         Route::resource('users', 'UserController', ['except' => ['create', 'edit']]);
+        Route::resource('blog', 'BlogController', ['except' => ['create', 'edit']]);
     }
 );

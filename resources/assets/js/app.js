@@ -15,12 +15,16 @@ window.Vue.use(VueRouter);
 import UsersIndex from './components/users/UsersIndex.vue';
 import UsersCreate from './components/users/UsersCreate.vue';
 import UsersEdit from './components/users/UsersEdit.vue';
+import BlogsIndex from './components/blogs/BlogsIndex.vue';
+import BlogCreate from './components/blogs/BlogCreate.vue';
 
 const routes = [
     {
         path: '/',
         components: {
-            usersIndex: UsersIndex
+            // choose view depending on the name of router-view
+            usersIndex: UsersIndex,
+            blogsIndex: BlogsIndex
         }
     },
     {
@@ -32,7 +36,13 @@ const routes = [
         name: 'editUser',
         path: '/users/edit/:id',
         component: UsersEdit
-    }
+    },
+    {
+        name: 'createBlog',
+        path: '/blog/:id/create',
+        component: BlogCreate,
+        props: true
+    },
 ]
 
 const router = new VueRouter({routes});
