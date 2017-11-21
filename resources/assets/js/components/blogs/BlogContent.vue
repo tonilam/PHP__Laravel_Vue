@@ -2,7 +2,7 @@
 <template>
     <div>
         <div class="form-group">
-            <router-link to="/" class="btn btn-success"><span class="glyphicon glyphicon-chevron-left"></span> &nbsp; Back</router-link>
+            <router-link to="/" class="btn btn-success back-btn"><span class="glyphicon glyphicon-chevron-left"></span> &nbsp; Back</router-link>
         </div>
 
         <div class="panel panel-default">
@@ -12,7 +12,7 @@
             </div>
             <div class="panel-body">
                 <div>
-                    <div>{{ blog.content }}</div>
+                    <div id="summercode" v-html="blog.content"></div>
                 </div>
             </div>
         </div>

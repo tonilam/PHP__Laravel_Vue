@@ -46687,6 +46687,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -46703,19 +46705,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     watch: {
         title: function title() {
             this.blog.title = this.title;
-            this.blog.slug = this.title.toLowerCase().replace(/ /g, '-');
+            this.blog.slug = this.title.toLowerCase().replace(/[^\w\s]/gi, '').replace(/ /g, '-');
         }
     },
     mounted: function mounted() {
         var app = this;
         var id = app.$route.params.id;
         this.blog.user_id = id;
+        window.triggerSummernote();
         console.log('Ready to write blog');
     },
     methods: {
         saveForm: function saveForm() {
             event.preventDefault();
             var app = this;
+            var markupStr = $('#summernote').summernote('code');
+            app.blog.content = markupStr;
             var newBlogEntity = app.blog;
             axios.post('/api/v1/blog', newBlogEntity).then(function (response) {
                 app.$router.push({ path: '/' });
@@ -46775,9 +46780,10 @@ var render = function() {
                   directives: [
                     {
                       name: "model",
-                      rawName: "v-model",
+                      rawName: "v-model.trim",
                       value: _vm.title,
-                      expression: "title"
+                      expression: "title",
+                      modifiers: { trim: true }
                     }
                   ],
                   staticClass: "form-control",
@@ -46788,7 +46794,10 @@ var render = function() {
                       if ($event.target.composing) {
                         return
                       }
-                      _vm.title = $event.target.value
+                      _vm.title = $event.target.value.trim()
+                    },
+                    blur: function($event) {
+                      _vm.$forceUpdate()
                     }
                   }
                 })
@@ -46829,7 +46838,7 @@ var render = function() {
                   _vm._v("Content")
                 ]),
                 _vm._v(" "),
-                _c("input", {
+                _c("textarea", {
                   directives: [
                     {
                       name: "model",
@@ -46839,7 +46848,7 @@ var render = function() {
                     }
                   ],
                   staticClass: "form-control",
-                  attrs: { type: "text" },
+                  attrs: { id: "summernote" },
                   domProps: { value: _vm.blog.content },
                   on: {
                     input: function($event) {
@@ -47019,7 +47028,7 @@ var render = function() {
       [
         _c(
           "router-link",
-          { staticClass: "btn btn-success", attrs: { to: "/" } },
+          { staticClass: "btn btn-success back-btn", attrs: { to: "/" } },
           [
             _c("span", { staticClass: "glyphicon glyphicon-chevron-left" }),
             _vm._v("   Back")
@@ -47042,7 +47051,12 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "panel-body" }, [
-        _c("div", [_c("div", [_vm._v(_vm._s(_vm.blog.content))])])
+        _c("div", [
+          _c("div", {
+            attrs: { id: "summercode" },
+            domProps: { innerHTML: _vm._s(_vm.blog.content) }
+          })
+        ])
       ])
     ])
   ])

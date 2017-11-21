@@ -1,6 +1,11 @@
 .container.blog {
 }
 
+    .container.blog .back-btn {
+        margin: 15px;
+        margin-bottom: 0;
+    }
+
     .container.blog .blog-entity {
         padding: 0.5em 0 2em 0;
         border-top: none;

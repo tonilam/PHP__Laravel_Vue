@@ -12,7 +12,7 @@
                     <div class="row">
                         <div class="col-xs-12 form-group">
                             <label class="control-label">Title</label>
-                            <input type="text" v-model="title" class="form-control">
+                            <input type="text" v-model.trim="title" class="form-control">
                         </div>
                     </div>
                     <div class="row">
@@ -24,7 +24,9 @@
                     <div class="row">
                         <div class="col-xs-12 form-group">
                             <label class="control-label">Content</label>
-                            <input type="text" v-model="blog.content" class="form-control">
+                            <textarea id="summernote" class="form-control"
+                                v-model="blog.content"
+                                ></textarea>
                         </div>
                     </div>
                     <div class="row">
@@ -55,19 +57,22 @@
         watch: {
             title: function() {
                 this.blog.title = this.title;
-                this.blog.slug = this.title.toLowerCase().replace(/ /g, '-');
+                this.blog.slug = this.title.toLowerCase().replace(/[^\w\s]/gi, '').replace(/ /g, '-');
             }
         },
         mounted: function() {
             let app = this;
             let id = app.$route.params.id;
             this.blog.user_id = id;
+            window.triggerSummernote();
             console.log('Ready to write blog');
         },
         methods: {
             saveForm() {
                 event.preventDefault();
                 var app = this;
+                var markupStr = $('#summernote').summernote('code');
+                app.blog.content = markupStr;
                 var newBlogEntity = app.blog;
                 axios.post('/api/v1/blog', newBlogEntity)
                     .then(response => {

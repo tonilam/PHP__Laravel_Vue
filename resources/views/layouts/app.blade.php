@@ -12,11 +12,15 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/blog.css') }}" rel="stylesheet">
     @if (!Auth::guest())
     <link href="{{ asset('css/user-panel.css') }}" rel="stylesheet">
     <link href="{{ asset('css/dashboard.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/blog.css') }}" rel="stylesheet">
+
+    <!-- include summernote css/js-->
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
     @endif
+
 </head>
 <body>
     <div id="app">
@@ -82,6 +86,24 @@
     </div>
 
     <!-- Scripts -->
+
     <script src="{{ asset('js/app.js') }}"></script>
+
+    @if (!Auth::guest())
+    <!-- include summernote css/js-->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            if ($('#summernote') != undefined) {
+                triggerSummernote();
+            }
+        });
+        function triggerSummernote() {
+            $('#summernote').summernote('code');
+        }
+    </script>
+    @endif
+
 </body>
 </html>
