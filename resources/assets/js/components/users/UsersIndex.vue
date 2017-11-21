@@ -27,7 +27,7 @@
                         <td>{{ user.timezone }}</td>
                         <td>{{ user.created_at }}</td>
                         <td>
-                            <router-link :to="{user: 'editCompany', params: {id: user.id}}" class="btn btn-xs btn-default">
+                            <router-link :to="{name: 'editUser', params: {id: user.id}}" class="btn btn-xs btn-default">
                                 Edit
                             </router-link>
                             <a href="#"

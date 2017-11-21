@@ -6,7 +6,7 @@
         </div>
 
         <div class="panel panel-default">
-            <div class="panel-heading">Create new user</div>
+            <div class="panel-heading">Modify user</div>
             <div class="panel-body">
                 <form v-on:submit="saveForm()">
                     <div class="row">
@@ -60,6 +60,7 @@
     export default {
         data: function () {
             return {
+                userId: null,
                 user: {
                     first_name: '',
                     last_name: '',
@@ -70,17 +71,30 @@
                 }
             }
         },
+        mounted: function() {
+            let app = this;
+            let id = app.$route.params.id;
+            console.log(id);
+            app.userId = id;
+            axios.get('/api/v1/users/' + id)
+                .then(response => {
+                    app.user = response.data;
+                })
+                .catch(error => {
+                    alert("Could not load user");
+                });
+        },
         methods: {
             saveForm() {
                 event.preventDefault();
                 var app = this;
                 var newUser = app.user;
-                axios.post('/api/v1/users', newUser)
-                    .then(function (resp) {
-                        app.$router.push({path: '/'});
+                axios.post('/api/v1/users/' + app.userId, newUser)
+                    .then(response => {
+                        app.$router.replace('/');
                     })
-                    .catch(function (resp) {
-                        console.log(resp);
+                    .catch(error => {
+                        console.log(error);
                         alert("Could not create new user");
                     });
             }

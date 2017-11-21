@@ -13,8 +13,8 @@ import VueRouter from 'vue-router';
 window.Vue.use(VueRouter);
 
 import UsersIndex from './components/users/UsersIndex.vue';
-import UsersCreate from './components/users/UsersCreate';
-// import UsersEdit from './components/users/UsersEdit';
+import UsersCreate from './components/users/UsersCreate.vue';
+import UsersEdit from './components/users/UsersEdit.vue';
 
 const routes = [
     {
@@ -28,11 +28,11 @@ const routes = [
         path: '/users/create',
         component: UsersCreate
     },
-    // {
-    //     name: 'editUser',
-    //     path: 'admin/users/edit',
-    //     component: UsersEdit
-    // }
+    {
+        name: 'editUser',
+        path: '/users/edit',
+        component: UsersEdit
+    }
 ]
 
 const router = new VueRouter({routes});
