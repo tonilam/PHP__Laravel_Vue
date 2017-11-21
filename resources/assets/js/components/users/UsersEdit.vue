@@ -89,13 +89,13 @@
                 event.preventDefault();
                 var app = this;
                 var newUser = app.user;
-                axios.post('/api/v1/users/' + app.userId, newUser)
+                axios.patch('/api/v1/users/' + app.userId, newUser)
                     .then(response => {
                         app.$router.replace('/');
                     })
                     .catch(error => {
                         console.log(error);
-                        alert("Could not create new user");
+                        alert("Could not modify user");
                     });
             }
         }

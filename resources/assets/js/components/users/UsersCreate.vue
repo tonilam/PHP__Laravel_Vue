@@ -47,7 +47,7 @@
                     </div>
                     <div class="row">
                         <div class="col-xs-12 form-group">
-                            <button class="btn btn-success">Create</button>
+                            <button class="btn btn-success">Update</button>
                         </div>
                     </div>
                 </form>

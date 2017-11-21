@@ -1008,7 +1008,7 @@ var routes = [{
     component: __WEBPACK_IMPORTED_MODULE_2__components_users_UsersCreate_vue___default.a
 }, {
     name: 'editUser',
-    path: '/users/edit',
+    path: '/users/edit/:id',
     component: __WEBPACK_IMPORTED_MODULE_3__components_users_UsersEdit_vue___default.a
 }];
 
@@ -46049,7 +46049,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-xs-12 form-group" }, [
-        _c("button", { staticClass: "btn btn-success" }, [_vm._v("Create")])
+        _c("button", { staticClass: "btn btn-success" }, [_vm._v("Update")])
       ])
     ])
   }
@@ -46206,11 +46206,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             event.preventDefault();
             var app = this;
             var newUser = app.user;
-            axios.post('/api/v1/users/' + app.userId, newUser).then(function (response) {
+            axios.patch('/api/v1/users/' + app.userId, newUser).then(function (response) {
                 app.$router.replace('/');
             }).catch(function (error) {
                 console.log(error);
-                alert("Could not create new user");
+                alert("Could not modify user");
             });
         }
     }
