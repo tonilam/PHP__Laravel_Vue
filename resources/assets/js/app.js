@@ -13,7 +13,7 @@ import VueRouter from 'vue-router';
 window.Vue.use(VueRouter);
 
 import UsersIndex from './components/users/UsersIndex.vue';
-// import UsersCreate from './components/users/UsersCreate';
+import UsersCreate from './components/users/UsersCreate';
 // import UsersEdit from './components/users/UsersEdit';
 
 const routes = [
@@ -23,11 +23,11 @@ const routes = [
             usersIndex: UsersIndex
         }
     },
-    // {
-    //     name: 'createUser',
-    //     path: 'admin/users/create',
-    //     component: UsersCreate
-    // },
+    {
+        name: 'createUser',
+        path: '/users/create',
+        component: UsersCreate
+    },
     // {
     //     name: 'editUser',
     //     path: 'admin/users/edit',
