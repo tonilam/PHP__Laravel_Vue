@@ -12,7 +12,7 @@
                     <div class="row">
                         <div class="col-xs-12 form-group">
                             <label class="control-label">Title</label>
-                            <input type="text" v-model="blog.title" class="form-control">
+                            <input type="text" v-model="title" class="form-control">
                         </div>
                     </div>
                     <div class="row">
@@ -43,12 +43,19 @@
     export default {
         data: function () {
             return {
+                title: null,
                 blog: {
                     title: '',
                     slug: '',
                     content: '',
                     user_id: '',
                 }
+            }
+        },
+        watch: {
+            title: function() {
+                this.blog.title = this.title;
+                this.blog.slug = this.title.toLowerCase().replace(/ /g, '-');
             }
         },
         mounted: function() {

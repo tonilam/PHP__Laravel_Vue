@@ -2,15 +2,16 @@
 <template>
     <div>
         <div class="form-group">
-            <router-link :to="{name: 'createBlog', params: {id: userId}}" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span> &nbsp; Write Blog</router-link>
+            <router-link to="/" class="btn btn-success"><span class="glyphicon glyphicon-chevron-left"></span> &nbsp; Back</router-link>
         </div>
 
         <div class="panel panel-default">
-            <div class="panel-heading">Blog list</div>
+            <div class="panel-heading">
+                <h3>{{ blog.title }}</h3>
+                <div>Written By {{ blog.user.first_name + ' ' + blog.user.last_name }}</div>
+            </div>
             <div class="panel-body">
-                <div v-for="blog, index in blogs">
-                    <h3><router-link :to="{name: 'viewBlog', params: {id: blog.user.id, slug: blog.slug}}">{{ blog.title }}</router-link></h3>
-                    <div>Written By {{ blog.user.first_name + ' ' + blog.user.last_name }}</div>
+                <div>
                     <div>{{ blog.content }}</div>
                 </div>
             </div>
@@ -23,15 +24,24 @@
         data: function () {
             return {
                 userId: $(".container.blog-list").attr('data-logged-as'),
-                blogs: []
+                blog: {
+                    title: '',
+                    content: '',
+                    user: {
+                        first_name: '',
+                        last_name: ''
+                    }
+                }
             }
         },
         mounted() {
             var app = this;
+            var reqId = app.$route.params.id;
+            var reqSlug = app.$route.params.slug;
             console.log('mounted');
-            axios.get('/api/v1/blog')
+            axios.get('/api/v1/blog/'+reqSlug)
                 .then(function (resp) {
-                    app.blogs = resp.data;
+                    app.blog = resp.data;
                 })
                 .catch(function (resp) {
                     console.log(resp);

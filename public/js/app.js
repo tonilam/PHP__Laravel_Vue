@@ -983,6 +983,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_blogs_BlogsIndex_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__components_blogs_BlogsIndex_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_blogs_BlogCreate_vue__ = __webpack_require__(65);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_blogs_BlogCreate_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__components_blogs_BlogCreate_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_blogs_BlogContent_vue__ = __webpack_require__(68);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_blogs_BlogContent_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__components_blogs_BlogContent_vue__);
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -996,6 +998,7 @@ window.Vue = __webpack_require__(35);
 
 
 window.Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]);
+
 
 
 
@@ -1021,8 +1024,11 @@ var routes = [{
 }, {
     name: 'createBlog',
     path: '/blog/:id/create',
-    component: __WEBPACK_IMPORTED_MODULE_5__components_blogs_BlogCreate_vue___default.a,
-    props: true
+    component: __WEBPACK_IMPORTED_MODULE_5__components_blogs_BlogCreate_vue___default.a
+}, {
+    name: 'viewBlog',
+    path: '/blog/:slug',
+    component: __WEBPACK_IMPORTED_MODULE_6__components_blogs_BlogContent_vue___default.a
 }];
 
 var router = new __WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]({ routes: routes });
@@ -46536,7 +46542,24 @@ var render = function() {
         { staticClass: "panel-body" },
         _vm._l(_vm.blogs, function(blog, index) {
           return _c("div", [
-            _c("h3", [_vm._v(_vm._s(blog.title))]),
+            _c(
+              "h3",
+              [
+                _c(
+                  "router-link",
+                  {
+                    attrs: {
+                      to: {
+                        name: "viewBlog",
+                        params: { id: blog.user.id, slug: blog.slug }
+                      }
+                    }
+                  },
+                  [_vm._v(_vm._s(blog.title))]
+                )
+              ],
+              1
+            ),
             _vm._v(" "),
             _c("div", [
               _vm._v(
@@ -46661,6 +46684,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
+            title: null,
             blog: {
                 title: '',
                 slug: '',
@@ -46668,6 +46692,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 user_id: ''
             }
         };
+    },
+    watch: {
+        title: function title() {
+            this.blog.title = this.title;
+            this.blog.slug = this.title.toLowerCase().replace(/ /g, '-');
+        }
     },
     mounted: function mounted() {
         var app = this;
@@ -46739,19 +46769,19 @@ var render = function() {
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.blog.title,
-                      expression: "blog.title"
+                      value: _vm.title,
+                      expression: "title"
                     }
                   ],
                   staticClass: "form-control",
                   attrs: { type: "text" },
-                  domProps: { value: _vm.blog.title },
+                  domProps: { value: _vm.title },
                   on: {
                     input: function($event) {
                       if ($event.target.composing) {
                         return
                       }
-                      _vm.$set(_vm.blog, "title", $event.target.value)
+                      _vm.title = $event.target.value
                     }
                   }
                 })
@@ -46858,6 +46888,165 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-b5cbbc40", module.exports)
+  }
+}
+
+/***/ }),
+/* 68 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(40)
+/* script */
+var __vue_script__ = __webpack_require__(69)
+/* template */
+var __vue_template__ = __webpack_require__(70)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\blogs\\BlogContent.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {  return key !== "default" && key.substr(0, 2) !== "__"})) {  console.error("named exports are not supported in *.vue files.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-0703dfc5", Component.options)
+  } else {
+    hotAPI.reload("data-v-0703dfc5", Component.options)
+' + '  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 69 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            userId: $(".container.blog-list").attr('data-logged-as'),
+            blog: {
+                title: '',
+                content: '',
+                user: {
+                    first_name: '',
+                    last_name: ''
+                }
+            }
+        };
+    },
+    mounted: function mounted() {
+        var app = this;
+        var reqId = app.$route.params.id;
+        var reqSlug = app.$route.params.slug;
+        console.log('mounted');
+        axios.get('/api/v1/blog/' + reqSlug).then(function (resp) {
+            app.blog = resp.data;
+        }).catch(function (resp) {
+            console.log(resp);
+            alert("Could not load blog entities");
+        });
+    },
+
+    methods: {}
+});
+
+/***/ }),
+/* 70 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c(
+      "div",
+      { staticClass: "form-group" },
+      [
+        _c(
+          "router-link",
+          { staticClass: "btn btn-success", attrs: { to: "/" } },
+          [
+            _c("span", { staticClass: "glyphicon glyphicon-chevron-left" }),
+            _vm._v("   Back")
+          ]
+        )
+      ],
+      1
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "panel panel-default" }, [
+      _c("div", { staticClass: "panel-heading" }, [
+        _c("h3", [_vm._v(_vm._s(_vm.blog.title))]),
+        _vm._v(" "),
+        _c("div", [
+          _vm._v(
+            "Written By " +
+              _vm._s(_vm.blog.user.first_name + " " + _vm.blog.user.last_name)
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "panel-body" }, [
+        _c("div", [_c("div", [_vm._v(_vm._s(_vm.blog.content))])])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-0703dfc5", module.exports)
   }
 }
 

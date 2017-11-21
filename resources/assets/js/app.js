@@ -17,6 +17,7 @@ import UsersCreate from './components/users/UsersCreate.vue';
 import UsersEdit from './components/users/UsersEdit.vue';
 import BlogsIndex from './components/blogs/BlogsIndex.vue';
 import BlogCreate from './components/blogs/BlogCreate.vue';
+import BlogContent from './components/blogs/BlogContent.vue';
 
 const routes = [
     {
@@ -40,9 +41,13 @@ const routes = [
     {
         name: 'createBlog',
         path: '/blog/:id/create',
-        component: BlogCreate,
-        props: true
+        component: BlogCreate
     },
+    {
+        name: 'viewBlog',
+        path: '/blog/:slug',
+        component: BlogContent
+    }
 ]
 
 const router = new VueRouter({routes});

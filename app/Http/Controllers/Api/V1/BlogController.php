@@ -49,7 +49,11 @@ class BlogController extends Controller
      */
     public function show($id)
     {
-        return Blog::findOrFail($id);
+        if (is_numeric($id)) {
+            return Blog::findOrFail($id);
+        } else {
+            return Blog::where('slug', $id)->with('user')->first();
+        }
     }
 
     /**
