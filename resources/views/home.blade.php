@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container dashboard">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
@@ -14,7 +14,16 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    <div class="row services">
+                        <div class="item col-xs-6">
+                            <a href="/users/"><span>Users</span>
+                                <span class="icon glyphicon glyphicon-menu-right"></span></a>
+                        </div>
+                        <div class="item col-xs-6">
+                            <a href="/blog/"><span>Blog</span>
+                                <span class="icon glyphicon glyphicon-menu-right"></span></a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
