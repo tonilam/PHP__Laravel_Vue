@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\User;
+use App\Timezone;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -48,7 +49,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        return User::findOrFail($id);
+        return User::where('id', $id)->with('timezone')->first();
     }
 
     /**

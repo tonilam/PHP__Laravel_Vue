@@ -14,6 +14,7 @@ window.Vue.use(VueRouter);
 
 import UsersIndex from './components/users/UsersIndex.vue';
 import UsersCreate from './components/users/UsersCreate.vue';
+import UserRegister from './components/users/UserRegister.vue';
 import UsersEdit from './components/users/UsersEdit.vue';
 import BlogsIndex from './components/blogs/BlogsIndex.vue';
 import BlogCreate from './components/blogs/BlogCreate.vue';
@@ -27,6 +28,11 @@ const routes = [
             usersIndex: UsersIndex,
             blogsIndex: BlogsIndex
         }
+    },
+    {
+        name: 'userRegister',
+        path: '/register',
+        component: UserRegister
     },
     {
         name: 'createUser',

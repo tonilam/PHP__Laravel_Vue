@@ -30,4 +30,8 @@ class User extends Authenticatable
     public function blog() {
         return $this->hasMany('App\Blog');
     }
+
+    public function timezone() {
+        return $this->hasOne('App\Timezone', 'id', 'timezone')->select(['id','gmtOffset','zoneName']);
+    }
 }
