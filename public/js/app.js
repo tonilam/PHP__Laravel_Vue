@@ -1031,7 +1031,10 @@ var routes = [{
     component: __WEBPACK_IMPORTED_MODULE_6__components_blogs_BlogContent_vue___default.a
 }];
 
-var router = new __WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]({ routes: routes });
+var router = new __WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]({
+    mode: 'history',
+    routes: routes
+});
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

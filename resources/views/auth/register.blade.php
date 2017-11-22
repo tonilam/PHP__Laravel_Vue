@@ -58,9 +58,9 @@
 
                             <div class="col-md-6">
                                 <select id="timezone" class="form-control" name="timezone" autofocus>
-                                    <option value="Australia\Aldelaide">[GMT +8] Australia\Aldelaide</option>
-                                    <option value="Australia\Brisbane">[GMT +8] Australia\Brisbane</option>
-                                    <option value="Australia\Sydney">[GMT +8] Australia\Sydney</option>
+                                    <option value="1">[GMT +8] Australia\Aldelaide</option>
+                                    <option value="2">[GMT +8] Australia\Brisbane</option>
+                                    <option value="3">[GMT +8] Australia\Sydney</option>
                                 </select>
 
                                 @if ($errors->has('timezone'))
@@ -106,4 +106,5 @@
         </div>
     </div>
 </div>
+<
 @endsection
