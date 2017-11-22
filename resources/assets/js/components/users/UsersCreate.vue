@@ -2,7 +2,7 @@
 <template>
     <div>
         <div class="form-group">
-            <router-link to="/" class="btn btn-default">Back</router-link>
+            <router-link to="/users/" class="btn btn-default">Back</router-link>
         </div>
 
         <div class="panel panel-default">
@@ -32,7 +32,7 @@
                             <label class="control-label">Time Zone</label>
                             <select class="form-control" v-model="user.timezone">
                                 <option value="">{{timezonePlaceholder}}</option>
-                                <option v-for="timezone in timezones" v-bind:value="timezone.zoneName">
+                                <option v-for="timezone in timezones" v-bind:value="timezone.id">
                                     [GMT {{((timezone.gmtOffset/3600) >= 0)? '+' : ''}}
                                     {{(timezone.gmtOffset/3600)}}]
                                     {{timezone.zoneName}}</option>
@@ -42,13 +42,13 @@
                     <div class="row">
                         <div class="col-xs-12 form-group">
                             <label class="control-label">Password</label>
-                            <input type="text" v-model="user.password" class="form-control">
+                            <input type="password" v-model="user.password" class="form-control">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-xs-12 form-group">
                             <label class="control-label">Confirm Password</label>
-                            <input type="text" v-model="user.repassword" class="form-control">
+                            <input type="password" v-model="user.repassword" class="form-control">
                         </div>
                     </div>
                     <div class="row">
@@ -97,7 +97,7 @@
                 var newUser = app.user;
                 axios.post('/api/v1/users', newUser)
                     .then(function (resp) {
-                        app.$router.push({path: '/'});
+                        app.$router.push('/users/');
                     })
                     .catch(function (resp) {
                         console.log(resp);

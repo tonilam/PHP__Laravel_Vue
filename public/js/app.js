@@ -62074,7 +62074,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var app = this;
             var newUser = app.user;
             axios.post('/api/v1/users', newUser).then(function (resp) {
-                app.$router.push({ path: '/' });
+                app.$router.push('/users/');
             }).catch(function (resp) {
                 console.log(resp);
                 alert("Could not create new user");
@@ -62098,7 +62098,7 @@ var render = function() {
       [
         _c(
           "router-link",
-          { staticClass: "btn btn-default", attrs: { to: "/" } },
+          { staticClass: "btn btn-default", attrs: { to: "/users/" } },
           [_vm._v("Back")]
         )
       ],
@@ -62255,7 +62255,7 @@ var render = function() {
                     _vm._l(_vm.timezones, function(timezone) {
                       return _c(
                         "option",
-                        { domProps: { value: timezone.zoneName } },
+                        { domProps: { value: timezone.id } },
                         [
                           _vm._v(
                             "\n                                [GMT " +
@@ -62292,7 +62292,7 @@ var render = function() {
                     }
                   ],
                   staticClass: "form-control",
-                  attrs: { type: "text" },
+                  attrs: { type: "password" },
                   domProps: { value: _vm.user.password },
                   on: {
                     input: function($event) {
@@ -62322,7 +62322,7 @@ var render = function() {
                     }
                   ],
                   staticClass: "form-control",
-                  attrs: { type: "text" },
+                  attrs: { type: "password" },
                   domProps: { value: _vm.user.repassword },
                   on: {
                     input: function($event) {
@@ -62876,7 +62876,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var app = this;
             var newUser = app.user;
             axios.patch('/api/v1/users/' + app.userId, newUser).then(function (response) {
-                app.$router.replace('/');
+                app.$router.push('/users/');
             }).catch(function (error) {
                 console.log(error);
                 alert("Could not modify user");
@@ -62900,7 +62900,7 @@ var render = function() {
       [
         _c(
           "router-link",
-          { staticClass: "btn btn-default", attrs: { to: "/" } },
+          { staticClass: "btn btn-default", attrs: { to: "/users/" } },
           [_vm._v("Back")]
         )
       ],
@@ -63427,7 +63427,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             app.blog.content = markupStr;
             var newBlogEntity = app.blog;
             axios.post('/api/v1/blog', newBlogEntity).then(function (response) {
-                app.$router.push({ path: '/' });
+                app.$router.push('/blog/');
             }).catch(function (error) {
                 console.log(error);
                 alert("Could not create new blog entity");

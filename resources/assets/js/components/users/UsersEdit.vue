@@ -2,7 +2,7 @@
 <template>
     <div>
         <div class="form-group">
-            <router-link to="/" class="btn btn-default">Back</router-link>
+            <router-link to="/users/" class="btn btn-default">Back</router-link>
         </div>
 
         <div class="panel panel-default">
@@ -105,7 +105,7 @@
                 var newUser = app.user;
                 axios.patch('/api/v1/users/' + app.userId, newUser)
                     .then(response => {
-                        app.$router.replace('/');
+                        app.$router.push('/users/');
                     })
                     .catch(error => {
                         console.log(error);

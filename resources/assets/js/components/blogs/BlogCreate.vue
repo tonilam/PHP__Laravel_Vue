@@ -79,7 +79,7 @@
                 var newBlogEntity = app.blog;
                 axios.post('/api/v1/blog', newBlogEntity)
                     .then(response => {
-                        app.$router.push({path: '/'});
+                        app.$router.push('/blog/');
                     })
                     .catch(error => {
                         console.log(error);
