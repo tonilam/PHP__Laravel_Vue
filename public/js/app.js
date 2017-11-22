@@ -45811,6 +45811,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -45823,9 +45827,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 password: '',
                 repassword: ''
             },
-            timezones: [{ zoneName: 'a' }, { zoneName: 'b' }, { zoneName: 'c' }]
+            timezones: [],
+            timezonePlaceholder: 'Loading'
         };
     },
+    mounted: function mounted() {
+        var vmInstance = this;
+        axios.get('/api/v1/timezone').then(function (resp) {
+            vmInstance.timezones = resp.data;
+            vmInstance.timezonePlaceholder = '-- Please select a time zone --';
+        }).catch(function (resp) {
+            console.log(resp);
+            alert("Could not load users");
+        });
+    },
+
     methods: {
         saveForm: function saveForm() {
             event.preventDefault();
@@ -46005,9 +46021,31 @@ var render = function() {
                       }
                     }
                   },
-                  _vm._l(_vm.timezones, function(timezone) {
-                    return _c("option", [_vm._v(_vm._s(timezone.zoneName))])
-                  })
+                  [
+                    _c("option", { attrs: { value: "" } }, [
+                      _vm._v(_vm._s(_vm.timezonePlaceholder))
+                    ]),
+                    _vm._v(" "),
+                    _vm._l(_vm.timezones, function(timezone) {
+                      return _c(
+                        "option",
+                        { domProps: { value: timezone.zoneName } },
+                        [
+                          _vm._v(
+                            "\n                                [GMT " +
+                              _vm._s(
+                                timezone.gmtOffset / 3600 >= 0 ? "+" : ""
+                              ) +
+                              "\n                                " +
+                              _vm._s(timezone.gmtOffset / 3600) +
+                              "]\n                                " +
+                              _vm._s(timezone.zoneName)
+                          )
+                        ]
+                      )
+                    })
+                  ],
+                  2
                 )
               ])
             ]),
@@ -46200,6 +46238,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -46212,11 +46258,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 timezone: '',
                 password: '',
                 repassword: ''
-            }
+            },
+            timezones: [],
+            timezonePlaceholder: 'Loading'
         };
     },
     mounted: function mounted() {
         var app = this;
+
+        // Get timezones from API
+        axios.get('/api/v1/timezone').then(function (resp) {
+            app.timezones = resp.data;
+            app.timezonePlaceholder = '-- Please select a time zone --';
+        }).catch(function (resp) {
+            console.log(resp);
+            alert("Could not load users");
+        });
+
+        // Get user's information from API
         var id = app.$route.params.id;
         console.log(id);
         app.userId = id;
@@ -46226,6 +46285,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             alert("Could not load user");
         });
     },
+
     methods: {
         saveForm: function saveForm() {
             event.preventDefault();
@@ -46373,27 +46433,69 @@ var render = function() {
                   _vm._v("Time Zone")
                 ]),
                 _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.user.timezone,
-                      expression: "user.timezone"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: { type: "text" },
-                  domProps: { value: _vm.user.timezone },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.user.timezone,
+                        expression: "user.timezone"
                       }
-                      _vm.$set(_vm.user, "timezone", $event.target.value)
+                    ],
+                    staticClass: "form-control",
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.$set(
+                          _vm.user,
+                          "timezone",
+                          $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        )
+                      }
                     }
-                  }
-                })
+                  },
+                  [
+                    _c("option", { attrs: { value: "" } }, [
+                      _vm._v(_vm._s(_vm.timezonePlaceholder))
+                    ]),
+                    _vm._v(" "),
+                    _vm._l(_vm.timezones, function(timezone) {
+                      return _c(
+                        "option",
+                        {
+                          domProps: {
+                            selected: timezone.zoneName == _vm.user.timezone,
+                            value: timezone.zoneName
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "\n                                [GMT " +
+                              _vm._s(
+                                timezone.gmtOffset / 3600 >= 0 ? "+" : ""
+                              ) +
+                              "\n                                " +
+                              _vm._s(timezone.gmtOffset / 3600) +
+                              "]\n                                " +
+                              _vm._s(timezone.zoneName)
+                          )
+                        ]
+                      )
+                    })
+                  ],
+                  2
+                )
               ])
             ]),
             _vm._v(" "),

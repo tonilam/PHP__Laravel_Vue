@@ -30,7 +30,15 @@
                     <div class="row">
                         <div class="col-xs-12 form-group">
                             <label class="control-label">Time Zone</label>
-                            <input type="text" v-model="user.timezone" class="form-control">
+                            <select class="form-control" v-model="user.timezone">
+                                <option value="">{{timezonePlaceholder}}</option>
+                                <option v-for="timezone in timezones"
+                                    :selected="timezone.zoneName == user.timezone"
+                                    :value="timezone.zoneName">
+                                    [GMT {{((timezone.gmtOffset/3600) >= 0)? '+' : ''}}
+                                    {{(timezone.gmtOffset/3600)}}]
+                                    {{timezone.zoneName}}</option>
+                            </select>
                         </div>
                     </div>
                     <div class="row">
@@ -56,11 +64,26 @@
                     timezone: '',
                     password: '',
                     repassword: '',
-                }
+                },
+                timezones: [],
+                timezonePlaceholder: 'Loading',
             }
         },
-        mounted: function() {
+        mounted() {
             let app = this;
+
+            // Get timezones from API
+            axios.get('/api/v1/timezone')
+                .then(function (resp) {
+                    app.timezones = resp.data;
+                    app.timezonePlaceholder = '-- Please select a time zone --';
+                })
+                .catch(function (resp) {
+                    console.log(resp);
+                    alert("Could not load users");
+                });
+
+            // Get user's information from API
             let id = app.$route.params.id;
             console.log(id);
             app.userId = id;

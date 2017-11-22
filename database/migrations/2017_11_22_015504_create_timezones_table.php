@@ -18,7 +18,7 @@ class CreateTimezonesTable extends Migration
             $table->string('countryCode');
             $table->string('countryName');
             $table->string('zoneName');
-            $table->string('gmtOffset');
+            $table->integer('gmtOffset');
 
             $table->timestamps();
         });

@@ -31,7 +31,11 @@
                         <div class="col-xs-12 form-group">
                             <label class="control-label">Time Zone</label>
                             <select class="form-control" v-model="user.timezone">
-                                <option v-for="timezone in timezones">{{timezone.zoneName}}</option>
+                                <option value="">{{timezonePlaceholder}}</option>
+                                <option v-for="timezone in timezones" v-bind:value="timezone.zoneName">
+                                    [GMT {{((timezone.gmtOffset/3600) >= 0)? '+' : ''}}
+                                    {{(timezone.gmtOffset/3600)}}]
+                                    {{timezone.zoneName}}</option>
                             </select>
                         </div>
                     </div>
@@ -70,12 +74,21 @@
                     password: '',
                     repassword: '',
                 },
-                timezones: [
-                    {zoneName:'a'},
-                    {zoneName:'b'},
-                    {zoneName:'c'},
-                    ]
+                timezones: [],
+                timezonePlaceholder: 'Loading'
             }
+        },
+        mounted() {
+            let vmInstance = this;
+            axios.get('/api/v1/timezone')
+                .then(function (resp) {
+                    vmInstance.timezones = resp.data;
+                    vmInstance.timezonePlaceholder = '-- Please select a time zone --';
+                })
+                .catch(function (resp) {
+                    console.log(resp);
+                    alert("Could not load users");
+                });
         },
         methods: {
             saveForm() {
