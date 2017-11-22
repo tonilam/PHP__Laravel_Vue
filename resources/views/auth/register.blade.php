@@ -8,8 +8,11 @@
                 <div class="panel-heading">Register</div>
 
                 <div class="panel-body">
-                    <router-view name="userRegister" :csrf="{{ csrf_token() }}"></router-view>
-                    <router-view></router-view>
+                    <form class="form-horizontal" method="POST" action="">
+                        {{ csrf_field() }}
+                        <router-view name="userRegister"></router-view>
+                        <router-view></router-view>
+                    </form>
                 </div>
             </div>
         </div>

@@ -24,8 +24,6 @@ const routes = [
     {
         path: '/',
         components: {
-            // choose view depending on the name of router-view
-            usersIndex: UsersIndex,
             blogsIndex: BlogsIndex
         }
     },
@@ -33,6 +31,16 @@ const routes = [
         name: 'userRegister',
         path: '/register',
         component: UserRegister
+    },
+    {
+        name: 'blogsIndex',
+        path: '/blog',
+        component: BlogsIndex
+    },
+    {
+        name: 'usersIndex',
+        path: '/users',
+        component: UsersIndex
     },
     {
         name: 'createUser',

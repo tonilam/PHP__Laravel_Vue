@@ -1012,14 +1012,20 @@ window.Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]);
 var routes = [{
     path: '/',
     components: {
-        // choose view depending on the name of router-view
-        usersIndex: __WEBPACK_IMPORTED_MODULE_1__components_users_UsersIndex_vue___default.a,
         blogsIndex: __WEBPACK_IMPORTED_MODULE_5__components_blogs_BlogsIndex_vue___default.a
     }
 }, {
     name: 'userRegister',
     path: '/register',
     component: __WEBPACK_IMPORTED_MODULE_3__components_users_UserRegister_vue___default.a
+}, {
+    name: 'blogsIndex',
+    path: '/blog',
+    component: __WEBPACK_IMPORTED_MODULE_5__components_blogs_BlogsIndex_vue___default.a
+}, {
+    name: 'usersIndex',
+    path: '/users',
+    component: __WEBPACK_IMPORTED_MODULE_1__components_users_UsersIndex_vue___default.a
 }, {
     name: 'createUser',
     path: '/users/create',
@@ -47336,19 +47342,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            csrf: '',
             timezones: [],
             timezonePlaceholder: 'Loading'
         };
     },
     mounted: function mounted() {
-        this.csrf = this.$route.params.csrf;
-        console.log(this.csrf);
         var app = this;
         axios.get('/api/v1/timezone').then(function (resp) {
             app.timezones = resp.data;
@@ -47370,30 +47372,56 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "form",
-    { staticClass: "form-horizontal", attrs: { method: "POST", action: "" } },
-    [
-      _c("input", {
-        attrs: { type: "hidden", name: "_token" },
-        domProps: { value: _vm.csrf }
-      }),
+  return _c("div", [
+    _vm._m(0, false, false),
+    _vm._v(" "),
+    _vm._m(1, false, false),
+    _vm._v(" "),
+    _vm._m(2, false, false),
+    _vm._v(" "),
+    _c("div", { staticClass: "form-group" }, [
+      _c(
+        "label",
+        { staticClass: "col-md-4 control-label", attrs: { for: "timezone" } },
+        [_vm._v("Time Zone")]
+      ),
       _vm._v(" "),
-      _vm._m(0, false, false),
-      _vm._v(" "),
-      _vm._m(1, false, false),
-      _vm._v(" "),
-      _vm._m(2, false, false),
-      _vm._v(" "),
-      _vm._m(3, false, false),
-      _vm._v(" "),
-      _vm._m(4, false, false),
-      _vm._v(" "),
-      _vm._m(5, false, false),
-      _vm._v(" "),
-      _vm._m(6, false, false)
-    ]
-  )
+      _c("div", { staticClass: "col-md-6" }, [
+        _c(
+          "select",
+          {
+            staticClass: "form-control",
+            attrs: { id: "timezone", name: "timezone" }
+          },
+          [
+            _c("option", { attrs: { value: "" } }, [
+              _vm._v(_vm._s(_vm.timezonePlaceholder))
+            ]),
+            _vm._v(" "),
+            _vm._l(_vm.timezones, function(timezone) {
+              return _c("option", { domProps: { value: timezone.id } }, [
+                _vm._v(
+                  "\n                    [GMT " +
+                    _vm._s(timezone.gmtOffset / 3600 >= 0 ? "+" : "") +
+                    "\n                    " +
+                    _vm._s(timezone.gmtOffset / 3600) +
+                    "]\n                    " +
+                    _vm._s(timezone.zoneName)
+                )
+              ])
+            })
+          ],
+          2
+        )
+      ])
+    ]),
+    _vm._v(" "),
+    _vm._m(3, false, false),
+    _vm._v(" "),
+    _vm._m(4, false, false),
+    _vm._v(" "),
+    _vm._m(5, false, false)
+  ])
 }
 var staticRenderFns = [
   function() {
@@ -47470,41 +47498,6 @@ var staticRenderFns = [
             required: ""
           }
         })
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c(
-        "label",
-        { staticClass: "col-md-4 control-label", attrs: { for: "timezone" } },
-        [_vm._v("Time Zone")]
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-6" }, [
-        _c(
-          "select",
-          {
-            staticClass: "form-control",
-            attrs: { id: "timezone", name: "timezone", autofocus: "" }
-          },
-          [
-            _c("option", { attrs: { value: "1" } }, [
-              _vm._v("[GMT +8] Australia\\Aldelaide")
-            ]),
-            _vm._v(" "),
-            _c("option", { attrs: { value: "2" } }, [
-              _vm._v("[GMT +8] Australia\\Brisbane")
-            ]),
-            _vm._v(" "),
-            _c("option", { attrs: { value: "3" } }, [
-              _vm._v("[GMT +8] Australia\\Sydney")
-            ])
-          ]
-        )
       ])
     ])
   },
