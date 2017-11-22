@@ -33,8 +33,8 @@
                             <select class="form-control" v-model="user.timezone">
                                 <option value="">{{timezonePlaceholder}}</option>
                                 <option v-for="timezone in timezones"
-                                    :selected="timezone.zoneName == user.timezone"
-                                    :value="timezone.zoneName">
+                                    :selected="timezone.id == userTimeZoneInfo.id"
+                                    :value="timezone.id">
                                     [GMT {{((timezone.gmtOffset/3600) >= 0)? '+' : ''}}
                                     {{(timezone.gmtOffset/3600)}}]
                                     {{timezone.zoneName}}</option>
@@ -57,6 +57,7 @@
         data: function () {
             return {
                 userId: null,
+                userTimeZoneInfo:{},
                 user: {
                     first_name: '',
                     last_name: '',
@@ -90,6 +91,8 @@
             axios.get('/api/v1/users/' + id)
                 .then(response => {
                     app.user = response.data;
+                    app.userTimeZoneInfo = app.user.timezone;
+                    app.user.timezone = app.userTimeZoneInfo.id;
                 })
                 .catch(error => {
                     alert("Could not load user");

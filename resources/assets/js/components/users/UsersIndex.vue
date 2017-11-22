@@ -6,15 +6,17 @@
         </div>
 
         <div class="panel panel-default">
-            <div class="panel-heading">Users list</div>
+            <div class="panel-heading">User List</div>
             <div class="panel-body">
+                <div class="panel-heading">
+                    <div class="row right">Current time zone: {{userGmtTime}}</div>
+                </div>
                 <table class="table table-bordered table-striped">
                     <thead>
                     <tr>
                         <th>First Name</th>
                         <th>Last Name</th>
                         <th>Email</th>
-                        <th>Time Zone</th>
                         <th>Created at</th>
                         <th width="100">&nbsp;</th>
                     </tr>
@@ -24,7 +26,6 @@
                         <td>{{ user.first_name }}</td>
                         <td>{{ user.last_name }}</td>
                         <td>{{ user.email }}</td>
-                        <td>{{ user.timezone }}</td>
                         <td>{{ user.created_at }}</td>
                         <td>
                             <router-link :to="{name: 'editUser', params: {id: user.id}}" class="btn btn-xs btn-default">
@@ -48,6 +49,11 @@
     export default {
         data: function () {
             return {
+                systemTimezone: $(".container.user-list").attr('data-system-timezone'),
+                userId: $(".container.user-list").attr('data-logged-as'),
+                userGmtOffset: 0,
+                userGmtTime: '',
+                userTimezone: '',
                 users: []
             }
         },
@@ -56,6 +62,25 @@
             axios.get('/api/v1/users')
                 .then(function (resp) {
                     app.users = resp.data;
+                    for (var iter in app.users) {
+                        if (app.users[iter].id == app.userId) {
+                            app.userGmtOffset = app.users[iter].timezone.gmtOffset / 3600;
+                            app.userTimezone = app.users[iter].timezone.zoneName;
+                            app.userGmtTime = 'GMT' + ((app.userGmtOffset >=0 ) ? '+' : '') + app.userGmtOffset + ' ' + app.users[iter].timezone.zoneName;
+                        }
+                    }
+                    for (var iter in app.users) {
+                        let localtime = moment.tz(
+                            new Date(app.users[iter].created_at),
+                            app.systemTimezone
+                        );
+                        let currentTime = localtime.clone().tz(
+                            app.userTimezone
+                        );
+                        console.log(localtime.format());
+                        console.log(currentTime.format());
+                        app.users[iter].created_at = currentTime.format('YYYY-M-D hh:mm:ss');
+                    }
                 })
                 .catch(function (resp) {
                     console.log(resp);

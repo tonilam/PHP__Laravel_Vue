@@ -7,6 +7,10 @@
 
 require('./bootstrap');
 
+window.moment = require('moment');
+window.moment.tz = require('moment-timezone/builds/moment-timezone-with-data.min');
+
+
 window.Vue = require('vue');
 import VueRouter from 'vue-router';
 
