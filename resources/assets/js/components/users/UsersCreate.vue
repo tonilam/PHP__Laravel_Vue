@@ -30,7 +30,9 @@
                     <div class="row">
                         <div class="col-xs-12 form-group">
                             <label class="control-label">Time Zone</label>
-                            <input type="text" v-model="user.timezone" class="form-control">
+                            <select class="form-control" v-model="user.timezone">
+                                <option v-for="timezone in timezones">{{timezone.zoneName}}</option>
+                            </select>
                         </div>
                     </div>
                     <div class="row">
@@ -67,7 +69,12 @@
                     timezone: '',
                     password: '',
                     repassword: '',
-                }
+                },
+                timezones: [
+                    {zoneName:'a'},
+                    {zoneName:'b'},
+                    {zoneName:'c'},
+                    ]
             }
         },
         methods: {

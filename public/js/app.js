@@ -45809,6 +45809,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -45820,7 +45822,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 timezone: '',
                 password: '',
                 repassword: ''
-            }
+            },
+            timezones: [{ zoneName: 'a' }, { zoneName: 'b' }, { zoneName: 'c' }]
         };
     },
     methods: {
@@ -45970,27 +45973,42 @@ var render = function() {
                   _vm._v("Time Zone")
                 ]),
                 _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.user.timezone,
-                      expression: "user.timezone"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: { type: "text" },
-                  domProps: { value: _vm.user.timezone },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.user.timezone,
+                        expression: "user.timezone"
                       }
-                      _vm.$set(_vm.user, "timezone", $event.target.value)
+                    ],
+                    staticClass: "form-control",
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.$set(
+                          _vm.user,
+                          "timezone",
+                          $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        )
+                      }
                     }
-                  }
-                })
+                  },
+                  _vm._l(_vm.timezones, function(timezone) {
+                    return _c("option", [_vm._v(_vm._s(timezone.zoneName))])
+                  })
+                )
               ])
             ]),
             _vm._v(" "),
