@@ -46852,6 +46852,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         console.log('Ready to write blog');
     },
     methods: {
+        convertSpecialChar: function convertSpecialChar() {
+            this.blog.slug = this.blog.slug.toLowerCase().replace(/[^\w\s-_]/gi, '').replace(/ /g, '-');
+        },
         saveForm: function saveForm() {
             event.preventDefault();
             var app = this;
@@ -46957,6 +46960,7 @@ var render = function() {
                   attrs: { type: "text" },
                   domProps: { value: _vm.blog.slug },
                   on: {
+                    change: _vm.convertSpecialChar,
                     input: function($event) {
                       if ($event.target.composing) {
                         return
@@ -47118,6 +47122,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -47126,6 +47131,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             blog: {
                 title: '',
                 content: '',
+                created_at: '',
                 user: {
                     first_name: '',
                     last_name: ''
@@ -47164,7 +47170,7 @@ var render = function() {
       [
         _c(
           "router-link",
-          { staticClass: "btn btn-success back-btn", attrs: { to: "/" } },
+          { staticClass: "btn btn-success back-btn", attrs: { to: "/blog" } },
           [
             _c("span", { staticClass: "glyphicon glyphicon-chevron-left" }),
             _vm._v("   Back")
@@ -47183,7 +47189,9 @@ var render = function() {
             "Written By " +
               _vm._s(_vm.blog.user.first_name + " " + _vm.blog.user.last_name)
           )
-        ])
+        ]),
+        _vm._v(" "),
+        _c("div", [_vm._v("on " + _vm._s(_vm.blog.created_at))])
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "panel-body" }, [

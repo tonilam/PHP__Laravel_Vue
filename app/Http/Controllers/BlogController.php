@@ -13,7 +13,6 @@ class BlogController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
     }
 
     /**
@@ -24,5 +23,15 @@ class BlogController extends Controller
     public function index()
     {
         return view('blog.index')->withUsers(\App\Blog::all());
+    }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        return view('blog.post');
     }
 }

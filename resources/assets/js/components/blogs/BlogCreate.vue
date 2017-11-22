@@ -18,7 +18,7 @@
                     <div class="row">
                         <div class="col-xs-12 form-group">
                             <label class="control-label">Slug</label>
-                            <input type="text" v-model="blog.slug" class="form-control">
+                            <input type="text" v-model="blog.slug" v-on:change="convertSpecialChar" class="form-control">
                         </div>
                     </div>
                     <div class="row">
@@ -68,6 +68,9 @@
             console.log('Ready to write blog');
         },
         methods: {
+            convertSpecialChar() {
+                this.blog.slug = this.blog.slug.toLowerCase().replace(/[^\w\s-_]/gi, '').replace(/ /g, '-');
+            },
             saveForm() {
                 event.preventDefault();
                 var app = this;

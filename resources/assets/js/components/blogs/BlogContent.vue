@@ -2,13 +2,14 @@
 <template>
     <div>
         <div class="form-group">
-            <router-link to="/" class="btn btn-success back-btn"><span class="glyphicon glyphicon-chevron-left"></span> &nbsp; Back</router-link>
+            <router-link to="/blog" class="btn btn-success back-btn"><span class="glyphicon glyphicon-chevron-left"></span> &nbsp; Back</router-link>
         </div>
 
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3>{{ blog.title }}</h3>
                 <div>Written By {{ blog.user.first_name + ' ' + blog.user.last_name }}</div>
+                <div>on {{ blog.created_at }}</div>
             </div>
             <div class="panel-body">
                 <div>
@@ -27,6 +28,7 @@
                 blog: {
                     title: '',
                     content: '',
+                    created_at: '',
                     user: {
                         first_name: '',
                         last_name: ''
