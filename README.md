@@ -17,4 +17,5 @@ A small demostration using Larvael and Vue.js
     > npm install
 - then, start the server by typing:
     > php artisan serve
-    
+- At your browser, visit this URL:
+    > http://127.0.0.1:8000
