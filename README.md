@@ -11,3 +11,10 @@ A small demostration using Larvael and Vue.js
 ## Functionalities
 - Account management
 - Blog
+
+## Run the app
+- At the root folder, install the dependencies by typing:
+    > npm install
+- then, start the server by typing:
+    > php artisan serve
+    
