@@ -27,6 +27,9 @@ class Blog extends Authenticatable
         'remember_token',
     ];
 
+    /**
+     * Define relationship with the User model
+     */
     public function user () {
         return $this->belongsTo('App\User')->select(['id','first_name','last_name']);
     }

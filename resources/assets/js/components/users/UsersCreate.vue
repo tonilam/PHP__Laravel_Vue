@@ -79,11 +79,13 @@
             }
         },
         mounted() {
-            let vmInstance = this;
+            let app = this;
+
+            // Use api to get the timezone data for the selection menu
             axios.get('/api/v1/timezone')
                 .then(function (resp) {
-                    vmInstance.timezones = resp.data;
-                    vmInstance.timezonePlaceholder = '-- Please select a time zone --';
+                    app.timezones = resp.data;
+                    app.timezonePlaceholder = '-- Please select a time zone --';
                 })
                 .catch(function (resp) {
                     console.log(resp);
@@ -91,6 +93,9 @@
                 });
         },
         methods: {
+            /**
+             * It will call this application's api to create the user.
+             */
             saveForm() {
                 event.preventDefault();
                 var app = this;

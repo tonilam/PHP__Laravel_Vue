@@ -10,6 +10,8 @@ class TimezoneController extends Controller
 {
     /**
      * Display a listing of the resource.
+     * If the timezone resource is not found in the database,
+     * the system will get the timezone information from timezonedb.com
      *
      * @return \Illuminate\Http\Response
      */

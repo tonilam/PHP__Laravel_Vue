@@ -43,8 +43,9 @@ class BlogController extends Controller
 
     /**
      * Display the specified resource.
+     * Query using the blog post's ID or the slug.
      *
-     * @param  int  $id
+     * @param  int|string  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)

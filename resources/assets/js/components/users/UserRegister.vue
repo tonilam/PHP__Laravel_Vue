@@ -75,6 +75,8 @@
         },
         mounted() {
             let app = this;
+
+            // Use api to get the timezone data for the selection menu
             axios.get('/api/v1/timezone')
                 .then(function (resp) {
                     app.timezones = resp.data;

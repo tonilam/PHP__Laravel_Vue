@@ -7,15 +7,16 @@
 
 require('./bootstrap');
 
+// User moment for manipulating time and timezone data
 window.moment = require('moment');
 window.moment.tz = require('moment-timezone/builds/moment-timezone-with-data.min');
 
-
+// using Vue.js amd Vue-router
 window.Vue = require('vue');
 import VueRouter from 'vue-router';
-
 window.Vue.use(VueRouter);
 
+// import Vue templates
 import UsersIndex from './components/users/UsersIndex.vue';
 import UsersCreate from './components/users/UsersCreate.vue';
 import UserRegister from './components/users/UserRegister.vue';
@@ -24,6 +25,7 @@ import BlogsIndex from './components/blogs/BlogsIndex.vue';
 import BlogCreate from './components/blogs/BlogCreate.vue';
 import BlogContent from './components/blogs/BlogContent.vue';
 
+// configurate router
 const routes = [
     {
         path: '/',
@@ -68,6 +70,9 @@ const routes = [
     }
 ]
 
+/**
+ * use mode: 'history' to remove the hashbag in the URL
+ */
 const router = new VueRouter({
     mode: 'history',
     routes: routes

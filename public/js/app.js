@@ -17066,14 +17066,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 __webpack_require__(132);
 
+// User moment for manipulating time and timezone data
 window.moment = __webpack_require__(0);
 window.moment.tz = __webpack_require__(156);
 
+// using Vue.js amd Vue-router
 window.Vue = __webpack_require__(157);
-
 
 window.Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]);
 
+// import Vue templates
 
 
 
@@ -17082,6 +17084,7 @@ window.Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]);
 
 
 
+// configurate router
 var routes = [{
     path: '/',
     components: {
@@ -17117,6 +17120,9 @@ var routes = [{
     component: __WEBPACK_IMPORTED_MODULE_7__components_blogs_BlogContent_vue___default.a
 }];
 
+/**
+ * use mode: 'history' to remove the hashbag in the URL
+ */
 var router = new __WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]({
     mode: 'history',
     routes: routes
@@ -61752,8 +61758,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
+            // Get data from Blade
             systemTimezone: $(".container.user-list").attr('data-system-timezone'),
             userId: $(".container.user-list").attr('data-logged-as'),
+
+            // initialize attributes
             userGmtOffset: 0,
             userGmtTime: '',
             userTimezone: '',
@@ -61764,6 +61773,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var app = this;
         axios.get('/api/v1/users').then(function (resp) {
             app.users = resp.data;
+
+            // find the data that related to the logged user
             for (var iter in app.users) {
                 if (app.users[iter].id == app.userId) {
                     app.userGmtOffset = app.users[iter].timezone.gmtOffset / 3600;
@@ -61771,11 +61782,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     app.userGmtTime = 'GMT' + (app.userGmtOffset >= 0 ? '+' : '') + app.userGmtOffset + ' ' + app.users[iter].timezone.zoneName;
                 }
             }
+
+            // parse the database time to match the logged user's timezone 
             for (var iter in app.users) {
+                // Get the user account creation date in system's timezone
                 var localtime = moment.tz(new Date(app.users[iter].created_at), app.systemTimezone);
+
+                // parse the time to user's timezone
                 var currentTime = localtime.clone().tz(app.userTimezone);
-                console.log(localtime.format());
-                console.log(currentTime.format());
+
                 app.users[iter].created_at = currentTime.format('YYYY-M-D hh:mm:ss');
             }
         }).catch(function (resp) {
@@ -61785,6 +61800,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     methods: {
+        /**
+         * It will call this application's api to delete selected user.
+         */
         deleteEntry: function deleteEntry(id, index) {
             if (confirm("Do you really want to delete it?")) {
                 var app = this;
@@ -62058,10 +62076,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
     mounted: function mounted() {
-        var vmInstance = this;
+        var app = this;
+
+        // Use api to get the timezone data for the selection menu
         axios.get('/api/v1/timezone').then(function (resp) {
-            vmInstance.timezones = resp.data;
-            vmInstance.timezonePlaceholder = '-- Please select a time zone --';
+            app.timezones = resp.data;
+            app.timezonePlaceholder = '-- Please select a time zone --';
         }).catch(function (resp) {
             console.log(resp);
             alert("Could not load users");
@@ -62069,6 +62089,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     methods: {
+        /**
+         * It will call this application's api to create the user.
+         */
         saveForm: function saveForm() {
             event.preventDefault();
             var app = this;
@@ -62495,6 +62518,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     mounted: function mounted() {
         var app = this;
+
+        // Use api to get the timezone data for the selection menu
         axios.get('/api/v1/timezone').then(function (resp) {
             app.timezones = resp.data;
             app.timezonePlaceholder = '-- Please select a time zone --';
@@ -62871,6 +62896,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     methods: {
+        /**
+         * It will call this application's api to update user.
+         */
         saveForm: function saveForm() {
             event.preventDefault();
             var app = this;
@@ -63404,6 +63432,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
     watch: {
+        /** 
+         * Change the slug value when the title changed
+         */
         title: function title() {
             this.blog.title = this.title;
             this.blog.slug = this.title.toLowerCase().replace(/[^\w\s]/gi, '').replace(/ /g, '-');
@@ -63417,9 +63448,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         console.log('Ready to write blog');
     },
     methods: {
+        /**
+         * This will be called if the slug field is being changed
+         */
         convertSpecialChar: function convertSpecialChar() {
             this.blog.slug = this.blog.slug.toLowerCase().replace(/[^\w\s-_]/gi, '').replace(/ /g, '-');
         },
+
+        /**
+         * It will use the api call to save new blog entry
+         */
         saveForm: function saveForm() {
             event.preventDefault();
             var app = this;
@@ -63709,6 +63747,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var reqId = app.$route.params.id;
         var reqSlug = app.$route.params.slug;
         console.log('mounted');
+
+        // use axios to get api resources
         axios.get('/api/v1/blog/' + reqSlug).then(function (resp) {
             app.blog = resp.data;
         }).catch(function (resp) {

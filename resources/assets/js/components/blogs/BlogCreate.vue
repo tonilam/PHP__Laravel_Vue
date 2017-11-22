@@ -55,6 +55,9 @@
             }
         },
         watch: {
+            /** 
+             * Change the slug value when the title changed
+             */
             title: function() {
                 this.blog.title = this.title;
                 this.blog.slug = this.title.toLowerCase().replace(/[^\w\s]/gi, '').replace(/ /g, '-');
@@ -68,9 +71,15 @@
             console.log('Ready to write blog');
         },
         methods: {
+            /**
+             * This will be called if the slug field is being changed
+             */
             convertSpecialChar() {
                 this.blog.slug = this.blog.slug.toLowerCase().replace(/[^\w\s-_]/gi, '').replace(/ /g, '-');
             },
+            /**
+             * It will use the api call to save new blog entry
+             */
             saveForm() {
                 event.preventDefault();
                 var app = this;

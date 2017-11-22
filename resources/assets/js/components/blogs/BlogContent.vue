@@ -41,6 +41,8 @@
             var reqId = app.$route.params.id;
             var reqSlug = app.$route.params.slug;
             console.log('mounted');
+
+            // use axios to get api resources
             axios.get('/api/v1/blog/'+reqSlug)
                 .then(function (resp) {
                     app.blog = resp.data;

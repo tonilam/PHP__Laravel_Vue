@@ -27,10 +27,16 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    /**
+     * Define relationship with the Blog model
+     */
     public function blog() {
         return $this->hasMany('App\Blog');
     }
 
+    /**
+     * Define relationship with the Timezone model
+     */
     public function timezone() {
         return $this->hasOne('App\Timezone', 'id', 'timezone')->select(['id','gmtOffset','zoneName']);
     }

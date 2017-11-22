@@ -99,6 +99,9 @@
                 });
         },
         methods: {
+            /**
+             * It will call this application's api to update user.
+             */
             saveForm() {
                 event.preventDefault();
                 var app = this;

@@ -49,8 +49,11 @@
     export default {
         data: function () {
             return {
+                // Get data from Blade
                 systemTimezone: $(".container.user-list").attr('data-system-timezone'),
                 userId: $(".container.user-list").attr('data-logged-as'),
+
+                // initialize attributes
                 userGmtOffset: 0,
                 userGmtTime: '',
                 userTimezone: '',
@@ -62,6 +65,8 @@
             axios.get('/api/v1/users')
                 .then(function (resp) {
                     app.users = resp.data;
+
+                    // find the data that related to the logged user
                     for (var iter in app.users) {
                         if (app.users[iter].id == app.userId) {
                             app.userGmtOffset = app.users[iter].timezone.gmtOffset / 3600;
@@ -69,16 +74,20 @@
                             app.userGmtTime = 'GMT' + ((app.userGmtOffset >=0 ) ? '+' : '') + app.userGmtOffset + ' ' + app.users[iter].timezone.zoneName;
                         }
                     }
+
+                    // parse the database time to match the logged user's timezone 
                     for (var iter in app.users) {
+                        // Get the user account creation date in system's timezone
                         let localtime = moment.tz(
                             new Date(app.users[iter].created_at),
                             app.systemTimezone
                         );
+
+                        // parse the time to user's timezone
                         let currentTime = localtime.clone().tz(
                             app.userTimezone
                         );
-                        console.log(localtime.format());
-                        console.log(currentTime.format());
+
                         app.users[iter].created_at = currentTime.format('YYYY-M-D hh:mm:ss');
                     }
                 })
@@ -88,6 +97,9 @@
                 });
         },
         methods: {
+            /**
+             * It will call this application's api to delete selected user.
+             */
             deleteEntry(id, index) {
                 if (confirm("Do you really want to delete it?")) {
                     var app = this;
