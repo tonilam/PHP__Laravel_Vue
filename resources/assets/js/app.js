@@ -16,6 +16,10 @@ window.Vue = require('vue');
 import VueRouter from 'vue-router';
 window.Vue.use(VueRouter);
 
+// Register Vue components
+Vue.component('collapsed-hamburger', require('./components/mobile-components/collapsed-hamburger.vue'));
+Vue.component('create-blog-button', require('./components/blogs/create-blog-button.vue'));
+
 // import Vue templates
 import UsersIndex from './components/users/UsersIndex.vue';
 import UsersCreate from './components/users/UsersCreate.vue';

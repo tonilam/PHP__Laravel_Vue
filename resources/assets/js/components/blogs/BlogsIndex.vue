@@ -1,9 +1,7 @@
 
 <template>
     <div>
-        <div class="form-group" v-if="userId > 0">
-            <router-link :to="{name: 'createBlog', params: {id: userId}}" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span> &nbsp; Write Blog</router-link>
-        </div>
+        <create-blog-button></create-blog-button>
 
         <div class="panel panel-default">
             <div class="panel-heading">Blog list</div>
@@ -23,7 +21,6 @@
     export default {
         data: function () {
             return {
-                userId: $(".container.blog").attr('data-logged-as'),
                 blogs: []
             }
         },
